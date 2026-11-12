@@ -1,0 +1,36 @@
+Package: DDES
+Title: Convert Digital PCR Platform Data to DDES
+Version: 1.1.0
+Authors@R:
+    c(
+        person(
+            given = "Wim",
+            family = "Trypsteen",
+            email = "wim.trypsteen@ugent.be",
+            role = c("aut", "cre")
+        ),
+        person(
+            given = "Matthijs", 
+            family = "Vynck",
+            email = "Matthijs.Vynck@UGent.be",
+	    role = "ctb",
+	    comment = c(ORCID = "0000-0001-9875-385X")
+        )
+    )
+Description: Converts digital polymerase chain reaction platform exports to
+    the DDES exchange format. The package supports QIAcuity analysis,
+    plate-layout, and relative-fluorescence exports and QX200 QuantaSoft head
+    and amplitude exports. It writes the DDES main, assay, and intensity files.
+License: GPL3
+URL: https://digpcr.ugent.be
+Encoding: UTF-8
+Depends:
+    R (>= 4.2.0)
+Imports:
+    zip
+Suggests:
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 8.0.0

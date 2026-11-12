@@ -1,0 +1,92 @@
+---
+title: "Convert QIAcuity data to DDES"
+author: "DIGPCR - Ghent University"
+date: "2026-11-05"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Convert QIAcuity data to DDES}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Purpose
+
+This tutorial converts QIAcuity digital polymerase chain reaction (dPCR) data
+to the DDES format.
+
+Three QIAcuity file inputs are required:
+
+1. The analysis results as a csv file.
+2. The plate layout as a csv file.
+3. Relative fluorescence unit (RFU) files bundled in a zip file.
+
+## Load the package and example files
+
+```{r load-files}
+library(DDES)
+
+exampleDirectory <- system.file(
+  "extdata",
+  "qiacuity",
+  package = "DDES"
+)
+
+analysisFile <- file.path(exampleDirectory, "current-results.csv")
+plateLayoutFile <- file.path(exampleDirectory, "plate-layout.csv")
+rfuArchive <- file.path(exampleDirectory, "rfu-export.zip")
+```
+
+The example data contains two reactions, and three color-readouts.
+
+## Convert the files
+
+Choose an output directory and call `convertQiacuity()`:
+
+```{r convert-files}
+outputDirectory <- file.path(
+  tempdir(),
+  "DDES-QIAcuity-tutorial"
+)
+
+conversion <- convertQiacuity(
+  analysisFile = analysisFile,
+  plateLayoutFile = plateLayoutFile,
+  rfuArchive = rfuArchive,
+  outputDirectory = outputDirectory,
+  experimentId = "tutorialExperiment",
+  instrument = "QIAcuity Four",
+  instrumentSoftwareVersion = "QIAcuity Software Suite 2.5.0",
+  dateTime = "202506301127"
+)
+```
+
+This writes a main file, an assay file, one intensity file per reaction, and a
+`.ddes` archive bundling all files:
+
+```{r inspect-files}
+basename(conversion$files)
+basename(conversion$archive)
+```
+
+## Inspect the converted data
+
+The returned object contains the converted tables, and can also be inspected
+directly in R:
+
+```{r inspect-data}
+head(conversion$mainData)
+conversion$assayData
+head(conversion$intensityData[[1]])
+```
+
+## Using your own QIAcuity data
+
+You can simply replace the three example paths above, with paths to your own 
+files.

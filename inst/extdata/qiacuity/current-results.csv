@@ -1,0 +1,7 @@
+"Plate.ID","Plate.type","Run.timestamp","Well","Sample.NTC.Control","Reaction.Mix","Target..Name.","Partitions..Positive.","Partitions..Negative.","Conc...cp.uL...dPCR.reaction.","Threshold"
+"5160815c-092d-49ea-946c-cf7bcb49432a","Nanoplate 26K 24-well","2025-06-30 11:27","A1","Sample1","HIV Triplex","PSI",4236,21173,241.9,18.88
+"5160815c-092d-49ea-946c-cf7bcb49432a","Nanoplate 26K 24-well","2025-06-30 11:27","A1","Sample1","HIV Triplex","ENV",4456,20920,256.1,19.87
+"5160815c-092d-49ea-946c-cf7bcb49432a","Nanoplate 26K 24-well","2025-06-30 11:27","A1","Sample1","HIV Triplex","GAG",4370,21030,250.4,42.23
+"5160815c-092d-49ea-946c-cf7bcb49432a","Nanoplate 26K 24-well","2025-06-30 11:27","A2","Sample2","HIV Triplex","PSI",4142,19644,257.1,18.88
+"5160815c-092d-49ea-946c-cf7bcb49432a","Nanoplate 26K 24-well","2025-06-30 11:27","A2","Sample2","HIV Triplex","ENV",4242,20867,248.7,19.87
+"5160815c-092d-49ea-946c-cf7bcb49432a","Nanoplate 26K 24-well","2025-06-30 11:27","A2","Sample2","HIV Triplex","GAG",4255,20451,254,42.23

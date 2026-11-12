@@ -1,0 +1,94 @@
+---
+title: "Convert QX200 data to DDES"
+author: "DIGPCR - Ghent University"
+date: "2026-11-12"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Convert QX200 data to DDES}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Purpose
+
+This tutorial converts QX200 QuantaSoft digital polymerase chain reaction
+(dPCR) data to the DDES format.
+
+Two QX200 QuantaSoft file inputs are required:
+
+1. The head file as a csv file.
+2. The amplitude data as one csv file per well.
+
+## Load the package and example files
+
+```{r load-files}
+library(DDES)
+
+exampleDirectory <- system.file(
+  "extdata",
+  "qx200_quantasoft",
+  package = "DDES"
+)
+
+headFile <- file.path(
+  exampleDirectory,
+  "20231130_JVS230_BRIP_Duplex_Normal.csv"
+)
+
+amplitudeFiles <- list.files(
+  exampleDirectory,
+  pattern = "_Amplitude[.]csv$",
+  full.names = TRUE
+)
+```
+
+## Convert the files
+
+Choose an output directory and call `convertQx200()`:
+
+```{r convert-files}
+outputDirectory <- file.path(
+  tempdir(),
+  "DDES-QX200-tutorial"
+)
+
+conversion <- convertQx200(
+  headFile = headFile,
+  amplitudeFiles = amplitudeFiles,
+  outputDirectory = outputDirectory,
+  experimentId = "JVS230_BRIP_Duplex_Normal",
+  instrumentSoftwareVersion = "QuantaSoft",
+  dateTime = "202611121300"
+)
+```
+
+This writes a main file, an assay file, one intensity file per well, and a
+`.ddes` archive bundling all files:
+
+```{r inspect-files}
+basename(conversion$files)
+basename(conversion$archive)
+```
+
+## Inspect the converted data
+
+The returned object contains the converted tables, and can also be inspected
+directly in R:
+
+```{r inspect-data}
+head(conversion$mainData)
+conversion$assayData
+head(conversion$intensityData[[1]])
+```
+
+## Using your own QX200 data
+
+You can simply replace the example head file path and amplitude file paths
+above, with paths to your own files.
